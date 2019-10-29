@@ -1,0 +1,91 @@
+{
+  "name": "chrome-extension-typescript-react",
+  "version": "1.0.0",
+  "description": "Chrome Extension starter kit, for React and TypeScript",
+  "keywords": [
+    "typescript",
+    "react",
+    "chrome-extension"
+  ],
+  "bugs": {
+    "url": "https://github.com/LibertyLocked/chrome-extension-typescript-react/issues"
+  },
+  "author": "libertylocked",
+  "contributors": [
+    "chibat",
+    "libertylocked"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/libertylocked/chrome-extension-typescript-react.git"
+  },
+  "scripts": {
+    "start": "npm run-script watch",
+    "build": "npm run-script build-prod",
+    "test": "jest --verbose --coverage",
+    "watch": "cross-env NODE_ENV=development webpack -w",
+    "build-dev": "cross-env NODE_ENV=development webpack",
+    "build-prod": "cross-env NODE_ENV=production webpack",
+    "clean": "rimraf ./dist",
+    "lint": "tslint -p tsconfig.json"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx,js,jsx}"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/*.(ts|tsx|js|jsx)",
+      "<rootDir>/src/**/?(*.)(spec|test).(ts|tsx|js|jsx)"
+    ],
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/jest/file-transform.ts",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
+  },
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "moment": "^2.18.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.47",
+    "@types/jest": "^20.0.2",
+    "@types/jquery": "^3.2.7",
+    "@types/node": "^8.0.11",
+    "@types/react": "^15.0.38",
+    "@types/react-dom": "^15.5.1",
+    "@types/webpack": "^3.0.4",
+    "clean-webpack-plugin": "^0.1.16",
+    "copy-webpack-plugin": "^4.0.1",
+    "cross-env": "^5.0.1",
+    "css-loader": "^0.28.4",
+    "file-loader": "^0.11.2",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^20.0.4",
+    "postcss-loader": "^2.0.6",
+    "rimraf": "^2.6.1",
+    "source-map-loader": "^0.2.1",
+    "style-loader": "^0.18.2",
+    "ts-jest": "^20.0.7",
+    "ts-loader": "^2.2.2",
+    "ts-node": "^3.2.0",
+    "tslint": "^5.5.0",
+    "tslint-loader": "^3.5.3",
+    "tslint-react": "^3.0.0",
+    "tsutils": "^2.6.1",
+    "typescript": "^2.4.1",
+    "webpack": "^3.2.0"
+  }
+}
