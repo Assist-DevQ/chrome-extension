@@ -1,7 +1,8 @@
+import { IStorageProps } from '../types/StorageKeys'
 
-const polling = () => {
-  console.log('polling')
-  setTimeout(polling, 1000 * 30)
+const defaultStorage: IStorageProps = {
+  isRecording: false,
+  events: []
 }
 
-polling()
+chrome.storage.local.set(defaultStorage)

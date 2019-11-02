@@ -4,5 +4,5 @@ export interface IScrollProps {
   scrollTop: number,
   startTop: number,
   startLeft: number,
-  timer?: NodeJS.Timer
+  timer?: NodeJS.Timer | number
 }

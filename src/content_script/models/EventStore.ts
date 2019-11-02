@@ -8,8 +8,11 @@ export class EventStore {
     chrome.runtime.sendMessage({ eventsRecorded: this.events.length })
   }
 
+  public getAll(): IEventProps[] {
+    return [...this.events]
+  }
+
   public flush(): void {
-    chrome.runtime.sendMessage({ recording: false, events: [...this.events] })
     this.events.length = 0
   }
 }

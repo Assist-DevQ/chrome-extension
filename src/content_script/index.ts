@@ -2,6 +2,7 @@
 import { DOMEvent } from './types/DOMEvent'
 import { IScrollProps } from './types/ScrollProps'
 import { EventStore } from './models/EventStore'
+import { eventNames } from 'cluster'
 
 let isRecording = false
 const eventStore = new EventStore()
@@ -23,6 +24,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     chrome.runtime.sendMessage({ recording: true })
   } else if (msg.record === false) {
     console.log('stopping to record')
+    console.log('alll', eventStore.getAll())
     eventStore.flush()
     chrome.runtime.sendMessage({ recording: false })
   } else {
@@ -32,7 +34,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
 const startRecording = () => {
   isRecording = true
-  Object.keys(DOMEvent).forEach(addDocumentEventListener)
+  Object.values(DOMEvent).forEach(addDocumentEventListener)
   window.addEventListener(
     'scroll',
     () => {
@@ -56,7 +58,7 @@ const updateScrollEvent = () => {
     scrollProps.timer = setTimeout(finishScrollEvent, scrollTimeMs)
   } else {
     if (scrollProps.timer) {
-      clearTimeout(scrollProps.timer)
+      clearTimeout(scrollProps.timer as NodeJS.Timer)
     }
     scrollProps.timer = setTimeout(finishScrollEvent, scrollTimeMs)
   }
@@ -117,69 +119,72 @@ function getCSSPath(el: any, ignoreIds: boolean) {
 const addDocumentEventListener = (eventName: string) => {
   document.body.addEventListener(
     eventName,
-    (e: Event) => {
-      const mEvt = e as MouseEvent
-      const kEvt = e as KeyboardEvent
-      const eventData = {
-        // path: processPath(e.path),
-        csspath: getCSSPath(e.target, false),
-        csspathfull: getCSSPath(e.target, true),
-        clientX: mEvt.clientX,
-        clientY: mEvt.clientY,
-        altKey: mEvt.altKey,
-        ctrlKey: mEvt.ctrlKey,
-        shiftKey: mEvt.shiftKey,
-        metaKey: mEvt.metaKey,
-        button: mEvt.button,
-        bubbles: e.bubbles,
-        keyCode: -1,
-        selectValue: '',
-        value: '',
-        type: '',
-        cancelable: e.cancelable,
-        innerText: e.target ? e.target || '' : '',
-        url: window.location.href
-      }
-
-      if (eventName === 'select') {
-        eventData.selectValue = kEvt.target ? (kEvt.target as HTMLSelectElement).value : ''
-      }
-
-      if (eventName === 'keyup' || eventName === 'keydown' || eventName === 'keypress') {
-        eventData.keyCode = kEvt.keyCode
-      }
-
-      if (eventName === 'input' || eventName === 'propertychange' || eventName === 'change') {
-        eventData.type = kEvt.target ? (kEvt.target as HTMLInputElement).tagName.toLowerCase() : ''
-
-        /* tslint:disable-next-line: prefer-conditional-expression */
-        if (eventData.type === 'input' || eventData.type === 'textarea') {
-          eventData.value = (e.target as HTMLInputElement).value
-        } else {
-          eventData.value = (e.target as HTMLInputElement).innerText
-        }
-      }
-
-      if (eventName === 'cut') {
-        eventName = 'clipboard_cut'
-      }
-      if (eventName === 'copy') {
-        eventName = 'clipboard_copy'
-      }
-      if (eventName === 'paste') {
-        eventName = 'clipboard_paste'
-      }
-      if (eventName === 'wfSubmit') {
-        eventName = 'submit'
-      }
-      if (isRecording) {
-        eventStore.add({
-          event: eventName,
-          data: eventData,
-          time: Number(Date.now())
-        })
-      }
-    },
+    listenerHandler(eventName),
     false
   )
+}
+
+const listenerHandler = (eventName: string) => (e: Event) => {
+  const mEvt = e as MouseEvent
+  const kEvt = e as KeyboardEvent
+  const eventData = {
+    // path: processPath(e.path),
+    csspath: getCSSPath(e.target, false),
+    csspathfull: getCSSPath(e.target, true),
+    clientX: mEvt.clientX,
+    clientY: mEvt.clientY,
+    altKey: mEvt.altKey,
+    ctrlKey: mEvt.ctrlKey,
+    shiftKey: mEvt.shiftKey,
+    metaKey: mEvt.metaKey,
+    button: mEvt.button,
+    bubbles: e.bubbles,
+    keyCode: -1,
+    selectValue: '',
+    value: '',
+    type: '',
+    cancelable: e.cancelable,
+    innerText: e.target ? e.target || '' : '',
+    url: window.location.href
+  }
+
+  if (eventName === 'select') {
+    eventData.selectValue = kEvt.target ? (kEvt.target as HTMLSelectElement).value : ''
+  }
+
+  if (eventName === 'keyup' || eventName === 'keydown' || eventName === 'keypress') {
+    eventData.keyCode = kEvt.keyCode
+  }
+
+  if (eventName === 'input' || eventName === 'propertychange' || eventName === 'change') {
+    eventData.type = kEvt.target ? (kEvt.target as HTMLInputElement).tagName.toLowerCase() : ''
+
+    /* tslint:disable-next-line: prefer-conditional-expression */
+    if (eventData.type === 'input' || eventData.type === 'textarea') {
+      eventData.value = (e.target as HTMLInputElement).value
+    } else {
+      eventData.value = (e.target as HTMLInputElement).innerText
+    }
+  }
+
+  if (eventName === 'cut') {
+    eventName = 'clipboard_cut'
+  }
+  if (eventName === 'copy') {
+    eventName = 'clipboard_copy'
+  }
+  if (eventName === 'paste') {
+    eventName = 'clipboard_paste'
+  }
+  if (eventName === 'wfSubmit') {
+    eventName = 'submit'
+  }
+  console.log('maybe rec', isRecording)
+  if (isRecording) {
+    eventStore.add({
+      event: eventName,
+      data: eventData,
+      time: Number(Date.now())
+    })
+  }
 }
