@@ -1,22 +1,25 @@
-import * as path from "path";
-import * as webpack from "webpack";
+import * as path from 'path'
+import * as webpack from 'webpack'
 
 // webpack plugins
-const CleanWebpackPlugin = require("clean-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+/* tslint:disable-next-line: no-var-requires */
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+/* tslint:disable-next-line: no-var-requires */
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 // postcss plugins
-const autoprefixer = require("autoprefixer");
+/* tslint:disable-next-line: no-var-requires */
+const autoprefixer = require('autoprefixer')
 
 const isProd = (): boolean => {
-  return process.env.NODE_ENV === "production";
-};
+  return process.env.NODE_ENV === 'production'
+}
 
 const buildConfig: webpack.Configuration = {
   entry: {
-    background_script: path.join(__dirname, "src/background_script/index.ts"),
-    content_script: path.join(__dirname, "src/content_script/index.ts"),
-    options: path.join(__dirname, "src/options/index.tsx"),
-    popup: path.join(__dirname, "src/popup/index.tsx"),
+    background_script: path.join(__dirname, 'src/background_script/index.ts'),
+    content_script: path.join(__dirname, 'src/content_script/index.ts'),
+    options: path.join(__dirname, 'src/options/index.tsx'),
+    popup: path.join(__dirname, 'src/popup/index.tsx')
   },
   // tslint:disable-next-line:no-object-literal-type-assertion
   module: {
@@ -24,8 +27,8 @@ const buildConfig: webpack.Configuration = {
       // compile ts
       {
         exclude: /node_modules/,
-        loader: "ts-loader",
-        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        test: /\.tsx?$/
       },
       // css loader
       // source maps are generated only for dev builds
@@ -33,112 +36,107 @@ const buildConfig: webpack.Configuration = {
       {
         test: /\.css$/,
         use: [
-          { loader: "style-loader", options: { sourceMap: !isProd() } },
+          { loader: 'style-loader', options: { sourceMap: !isProd() } },
           {
-            loader: "css-loader", options: {
-              localIdentName: isProd() ? "[hash:base64]" : "[path][name]__[local]__[hash:base64:6]",
+            loader: 'css-loader',
+            options: {
+              localIdentName: isProd() ? '[hash:base64]' : '[path][name]__[local]__[hash:base64:6]',
               minimize: isProd(),
               modules: true,
-              sourceMap: !isProd(),
-            },
+              sourceMap: !isProd()
+            }
           },
           {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
-              plugins: () => [autoprefixer({
-                browsers: [
-                  ">1%",
-                  "last 4 versions",
-                  "Firefox ESR",
-                  "not ie < 9",
-                ],
-              })],
-              sourceMap: !isProd(),
-            },
-          },
-        ],
+              plugins: () => [
+                autoprefixer({
+                  browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9']
+                })
+              ],
+              sourceMap: !isProd()
+            }
+          }
+        ]
       },
       // file loader for media assets
       {
-        exclude: [
-          /\.(html?)$/,
-          /\.(ts|tsx|js|jsx)$/,
-          /\.css$/,
-          /\.json$/,
-        ],
-        loader: "file-loader",
+        exclude: [/\.(html?)$/, /\.(ts|tsx|js|jsx)$/, /\.css$/, /\.json$/],
+        loader: 'file-loader',
         query: {
-          name: "[hash].[ext]",
-          outputPath: "media/",
-          publicPath: "build/",
-        },
-      },
-    ],
+          name: '[hash].[ext]',
+          outputPath: 'media/',
+          publicPath: 'build/'
+        }
+      }
+    ]
   } as webpack.NewModule,
   output: {
-    filename: "[name].js",
-    path: path.join(__dirname, "dist/build"),
+    filename: '[name].js',
+    path: path.join(__dirname, 'dist/build')
   },
   plugins: [
     // pack common chunks
     new webpack.optimize.CommonsChunkPlugin({
-      chunks: ["background_script", "content_script"],
+      chunks: ['background_script', 'content_script'],
       minChunks: 2,
-      name: "common_for_scripts",
+      name: 'common_for_scripts'
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      chunks: ["popup", "options"],
+      chunks: ['popup', 'options'],
       minChunks: 2,
-      name: "common_for_ui",
+      name: 'common_for_ui'
     }),
     // exclude locale files in moment
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // copy files in public to dist
-    new CopyWebpackPlugin([{
-      context: "public",
-      from: {
-        dot: false,
-        glob: "**/*",
-      },
-      to: path.join(__dirname, "dist/"),
-    }]),
+    new CopyWebpackPlugin([
+      {
+        context: 'public',
+        from: {
+          dot: false,
+          glob: '**/*'
+        },
+        to: path.join(__dirname, 'dist/')
+      }
+    ])
   ],
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx"],
-  },
-};
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
+  }
+}
 
 if (isProd()) {
   // Production build tweaks
-  buildConfig.devtool = false;
+  buildConfig.devtool = false
   buildConfig.plugins = (buildConfig.plugins || []).concat([
     new webpack.DefinePlugin({
-      "process.env": { NODE_ENV: JSON.stringify("production") },
+      'process.env': { NODE_ENV: JSON.stringify('production') }
     }),
     // clean output files
-    new CleanWebpackPlugin(["dist"]),
+    new CleanWebpackPlugin(['dist']),
     // minify
-    new webpack.optimize.UglifyJsPlugin(),
-  ]);
+    new webpack.optimize.UglifyJsPlugin()
+  ])
 } else {
   // Development build tweaks
-  const buildConfigModule = buildConfig.module as webpack.NewModule;
+  const buildConfigModule = buildConfig.module as webpack.NewModule
   buildConfigModule.rules = (buildConfigModule.rules || []).concat([
     // tslint
     {
-      enforce: "pre",
+      enforce: 'pre',
       exclude: /node_modules/,
-      loader: "tslint-loader",
-      test: /\.tsx?$/,
-    },
-  ]);
+      loader: 'tslint-loader',
+      test: /\.tsx?$/
+    }
+  ])
   buildConfig.plugins = (buildConfig.plugins || []).concat([
     // exclude source mapping for vendor libs
     new webpack.SourceMapDevToolPlugin({
       exclude: /^vendor.*.\.js$/,
-      filename: "[file].map",
-    }),
-  ]);
+      filename: '[file].map'
+    })
+  ])
 }
 
-export default buildConfig;
+export default buildConfig
