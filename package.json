@@ -56,16 +56,17 @@
   "dependencies": {
     "jquery": "^3.2.1",
     "moment": "^2.18.1",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react": "^16.9.11",
+    "react-dom": "^16.9.3",
+    "semantic-ui-react": "^0.88.1"
   },
   "devDependencies": {
     "@types/chrome": "0.0.47",
     "@types/jest": "^20.0.2",
     "@types/jquery": "^3.2.7",
     "@types/node": "^8.0.11",
-    "@types/react": "^15.0.38",
-    "@types/react-dom": "^15.5.1",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.3",
     "@types/webpack": "^3.0.4",
     "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
@@ -85,7 +86,7 @@
     "tslint-loader": "^3.5.3",
     "tslint-react": "^3.0.0",
     "tsutils": "^2.6.1",
-    "typescript": "^2.4.1",
+    "typescript": "^2.9.2",
     "webpack": "^3.2.0"
   }
 }

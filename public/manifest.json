@@ -1,5 +1,5 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "DevQ chrome extension",
   "description": "DevQ chrome extension used to record the testing scenarios",
   "version": "0.1",

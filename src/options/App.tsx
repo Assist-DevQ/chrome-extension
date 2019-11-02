@@ -3,27 +3,21 @@ import * as React from 'react'
 /* tslint:disable-next-line: no-var-requires */
 const appStyles = require('./App.css')
 
-interface IUserPrefs {
-  colorful: boolean
-  favoriteColor: string
-}
-
-class App extends React.Component<{}, { prefs: IUserPrefs }> {
-
+class App extends React.Component<any, any> {
   constructor(props: {}) {
     super(props)
     // init state with default values
     this.state = {
       prefs: {
         colorful: false,
-        favoriteColor: 'red',
-      },
+        favoriteColor: 'red'
+      }
     }
   }
 
   public componentWillMount() {
     // read options from storage, with default values
-    chrome.storage.sync.get(['favoriteColor', 'colorful'], (items: IUserPrefs) => {
+    chrome.storage.sync.get(['favoriteColor', 'colorful'], (items) => {
       this.setState({ prefs: items })
       console.log('options loaded', items)
     })
@@ -56,8 +50,8 @@ class App extends React.Component<{}, { prefs: IUserPrefs }> {
     this.setState({
       prefs: {
         colorful: this.state.prefs.colorful,
-        favoriteColor: e.target.value,
-      },
+        favoriteColor: e.target.value
+      }
     })
   }
 
@@ -65,8 +59,8 @@ class App extends React.Component<{}, { prefs: IUserPrefs }> {
     this.setState({
       prefs: {
         colorful: e.target.checked,
-        favoriteColor: this.state.prefs.favoriteColor,
-      },
+        favoriteColor: this.state.prefs.favoriteColor
+      }
     })
   }
 
@@ -77,7 +71,6 @@ class App extends React.Component<{}, { prefs: IUserPrefs }> {
       console.log('options saved', this.state.prefs)
     })
   }
-
 }
 
 export default App

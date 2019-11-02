@@ -6,6 +6,7 @@
     "outDir": "dist/tsc_output",
     "sourceMap": true,
     "strict": true,
+    "lib": ["es6", "dom", "es7"],
     "noEmitOnError": true
   },
   "include": [
