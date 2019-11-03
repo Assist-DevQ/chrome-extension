@@ -1,24 +1,21 @@
 {
-  "name": "chrome-extension-typescript-react",
+  "name": "devq-recorder",
   "version": "1.0.0",
-  "description": "Chrome Extension starter kit, for React and TypeScript",
+  "description": "Chrome Extension for recording user interactions",
   "keywords": [
     "typescript",
     "react",
     "chrome-extension"
   ],
   "bugs": {
-    "url": "https://github.com/LibertyLocked/chrome-extension-typescript-react/issues"
+    "url": "https://github.com/Assist-DevQ/chrome-extension/issues"
   },
-  "author": "libertylocked",
-  "contributors": [
-    "chibat",
-    "libertylocked"
-  ],
+  "author": "andreicioban",
+  "contributors": [],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/libertylocked/chrome-extension-typescript-react.git"
+    "url": "https://github.com/Assist-DevQ/chrome-extension.git"
   },
   "scripts": {
     "start": "npm run-script watch",
