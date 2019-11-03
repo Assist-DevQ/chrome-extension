@@ -1,20 +1,21 @@
 // Original Source : https://github.com/iann0036/wildfire/blob/9bea9b4adb3399cba6020dcada760d329af9219f/content.js
 import { DOMEvent } from './types/DOMEvent'
-import { IScrollProps } from './types/ScrollProps'
+// import { IScrollProps } from './types/ScrollProps'
 import { EventStore } from './models/EventStore'
-import { eventNames } from 'cluster'
+// import { eventNames } from 'cluster'
 
 let isRecording = false
 const eventStore = new EventStore()
-const scrollProps: IScrollProps = {
-  startTime: -1,
-  object: {},
-  scrollTop: -1,
-  startTop: -1,
-  startLeft: -1
-}
+const listeners: Map<string, EventListenerOrEventListenerObject[]> = new Map()
+// const scrollProps: IScrollProps = {
+//   startTime: -1,
+//   object: {},
+//   scrollTop: -1,
+//   startTop: -1,
+//   startLeft: -1
+// }
 
-let scrollObject = document.body
+// let scrollObject = document.body
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   console.log('message:', msg)
@@ -26,62 +27,76 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     console.log('stopping to record')
     console.log('alll', eventStore.getAll())
     eventStore.flush()
+    removeListeners()
     chrome.runtime.sendMessage({ recording: false })
   } else {
     sendResponse('unknown command.')
   }
 })
 
-const startRecording = () => {
-  isRecording = true
-  Object.values(DOMEvent).forEach(addDocumentEventListener)
-  window.addEventListener(
-    'scroll',
-    () => {
-      setTimeout(() => {
-        if (isRecording) {
-          updateScrollEvent()
-        }
-      }, 1)
-    },
-    false
-  )
-}
-
-const updateScrollEvent = () => {
-  const scrollTimeMs = 100
-  if (scrollProps.object == null) {
-    scrollProps.startTime = Date.now()
-    scrollProps.object = document.body
-    scrollProps.startTop = scrollProps.scrollTop
-    scrollProps.startLeft = scrollObject.scrollLeft
-    scrollProps.timer = setTimeout(finishScrollEvent, scrollTimeMs)
-  } else {
-    if (scrollProps.timer) {
-      clearTimeout(scrollProps.timer as NodeJS.Timer)
+const removeListeners = () => {
+  Array.from(listeners.keys()).forEach((k: string) => {
+    const lst = listeners.get(k)
+    if (lst) {
+      lst.forEach((l: EventListenerOrEventListenerObject) => {
+        console.log('removing listener', k)
+        document.body.removeEventListener(k, l)
+      })
     }
-    scrollProps.timer = setTimeout(finishScrollEvent, scrollTimeMs)
+  })
+  const scl = listeners.get('scroll')
+  if (scl) {
+    window.removeEventListener('scroll', scl[0], false)
   }
 }
 
-const finishScrollEvent = () => {
-  scrollObject = document.body
-
-  eventStore.add({
-    event: 'scroll',
-    data: {
-      scrollTopStart: scrollProps.startTop,
-      scrollTopEnd: scrollObject.scrollTop,
-      scrollLeftStart: scrollProps.startLeft,
-      scrollLeftEnd: scrollObject.scrollLeft,
-      url: window.location.href
-    },
-    time: Number(Date.now())
-  })
-
-  scrollProps.startTop = 0
-  scrollProps.startLeft = 0
+const startRecording = () => {
+  isRecording = true
+  Object.values(DOMEvent).forEach(addDocumentEventListener)
+  console.log('adding scroll')
+  const scrollListener = (e: Event) => {
+    setTimeout(() => {
+      console.log('onScroll', e)
+    }, 10)
+  }
+  listeners.set('scroll', [scrollListener])
+  window.addEventListener('scroll', scrollListener, false)
 }
+
+// const updateScrollEvent = () => {
+//   const scrollTimeMs = 100
+//   if (scrollProps.object == null) {
+//     scrollProps.startTime = Date.now()
+//     scrollProps.object = document.body
+//     scrollProps.startTop = scrollProps.scrollTop
+//     scrollProps.startLeft = scrollObject.scrollLeft
+//     scrollProps.timer = setTimeout(finishScrollEvent, scrollTimeMs)
+//   } else {
+//     if (scrollProps.timer) {
+//       clearTimeout(scrollProps.timer as NodeJS.Timer)
+//     }
+//     scrollProps.timer = setTimeout(finishScrollEvent, scrollTimeMs)
+//   }
+// }
+
+// const finishScrollEvent = () => {
+//   scrollObject = document.body
+
+//   eventStore.add({
+//     event: 'scroll',
+//     data: {
+//       scrollTopStart: scrollProps.startTop,
+//       scrollTopEnd: scrollObject.scrollTop,
+//       scrollLeftStart: scrollProps.startLeft,
+//       scrollLeftEnd: scrollObject.scrollLeft,
+//       url: window.location.href
+//     },
+//     time: Number(Date.now())
+//   })
+
+//   scrollProps.startTop = 0
+//   scrollProps.startLeft = 0
+// }
 
 function getCSSPath(el: any, ignoreIds: boolean) {
   if (!(el instanceof Element)) {
@@ -117,11 +132,14 @@ function getCSSPath(el: any, ignoreIds: boolean) {
 }
 
 const addDocumentEventListener = (eventName: string) => {
-  document.body.addEventListener(
-    eventName,
-    listenerHandler(eventName),
-    false
-  )
+  const listener = listenerHandler(eventName)
+  const evtListeners = listeners.get(eventName)
+  if (evtListeners) {
+    evtListeners.push(listener)
+  } else {
+    listeners.set(eventName, [listener])
+  }
+  document.body.addEventListener(eventName, listener, false)
 }
 
 const listenerHandler = (eventName: string) => (e: Event) => {
