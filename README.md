@@ -30,3 +30,10 @@ npm run build
 - Right click and open DevTools
 - In DevTools you can press Ctrl+R to reload
 - Because source maps are generated, you can easily debug your ts code in DevTools
+
+## Roadmap
+
+- Add a private chanel from content script to background
+- Correctly handle the scroll event
+- Filter the useless events
+- Get scroll offset for each event??
