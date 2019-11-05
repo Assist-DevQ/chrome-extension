@@ -1,40 +1,35 @@
 // Original Source : https://github.com/iann0036/wildfire/blob/9bea9b4adb3399cba6020dcada760d329af9219f/content.js
 import { DOMEvent } from './types/DOMEvent'
-// import { IScrollProps } from './types/ScrollProps'
-import { EventStore } from './models/EventStore'
-// import { eventNames } from 'cluster'
+import { StorageKey } from '../types/StorageKeys'
+import { MessageType } from '../types/message/message'
 
-let isRecording = false
-const eventStore = new EventStore()
 const listeners: Map<string, EventListenerOrEventListenerObject[]> = new Map()
-// const scrollProps: IScrollProps = {
-//   startTime: -1,
-//   object: {},
-//   scrollTop: -1,
-//   startTop: -1,
-//   startLeft: -1
-// }
 
-// let scrollObject = document.body
+chrome.storage.local.get(StorageKey.IsRecording, (store) => {
+  if(store.isRecording) {
+    startRecording()
+  } else {
+    removeListeners()
+  }
+});
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   console.log('message:', msg)
   if (msg.record === true) {
     console.log('starting to record')
     startRecording()
-    chrome.runtime.sendMessage({ recording: true })
+    chrome.runtime.sendMessage({ type: MessageType.Record, payload: true })
   } else if (msg.record === false) {
     console.log('stopping to record')
-    console.log('alll', eventStore.getAll())
-    eventStore.flush()
     removeListeners()
-    chrome.runtime.sendMessage({ recording: false })
+    chrome.runtime.sendMessage({ type: MessageType.StopRecording, payload: false })
   } else {
     sendResponse('unknown command.')
   }
 })
 
 const removeListeners = () => {
+  console.log('removing listeners')
   Array.from(listeners.keys()).forEach((k: string) => {
     const lst = listeners.get(k)
     if (lst) {
@@ -51,13 +46,12 @@ const removeListeners = () => {
 }
 
 const startRecording = () => {
-  isRecording = true
+  console.log('adding listeners')
   Object.values(DOMEvent).forEach(addDocumentEventListener)
-  console.log('adding scroll')
   const scrollListener = (e: Event) => {
     setTimeout(() => {
-      console.log('onScroll', e)
-    }, 10)
+      console.log('onScroll', e) // TODO: get right values
+    }, 100)
   }
   listeners.set('scroll', [scrollListener])
   window.addEventListener('scroll', scrollListener, false)
@@ -197,12 +191,16 @@ const listenerHandler = (eventName: string) => (e: Event) => {
   if (eventName === 'wfSubmit') {
     eventName = 'submit'
   }
-  console.log('maybe rec', isRecording)
-  if (isRecording) {
-    eventStore.add({
-      event: eventName,
-      data: eventData,
-      time: Number(Date.now())
-    })
-  }
+  chrome.storage.local.get(StorageKey.IsRecording, (store) => {
+    if (store.isRecording) {
+      chrome.runtime.sendMessage({
+        type: MessageType.NewEvent,
+        payload: {
+          event: eventName,
+          data: eventData,
+          time: Number(Date.now())
+        }
+      })
+    }
+  })
 }

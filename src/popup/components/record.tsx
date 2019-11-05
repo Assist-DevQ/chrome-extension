@@ -9,7 +9,7 @@ class Record extends React.Component<any, any> {
     super(props)
     this.state = {
       isRecording: props.isRecording,
-      eventsRecorded: 0
+      eventsRecorded: props.events.length
     }
 
     // This binding is necessary to make `this` work in the callback
@@ -17,59 +17,43 @@ class Record extends React.Component<any, any> {
     this.stopRecording = this.stopRecording.bind(this)
     this.record = this.record.bind(this)
     this.recording = this.recording.bind(this)
-    chrome.runtime.onMessage.addListener((msg, sen, resCb) => {
-      this.setState((state: any) => {
-        return {
-          ...state,
-          eventsRecorded: msg.eventsRecorded || state.eventsRecorded
-        }
-      })
-    })
+    // chrome.runtime.onMessage.addListener((msg, sen, resCb) => {
+    //   this.setState((state: any) => {
+    //     return {
+    //       ...state,
+    //       eventsRecorded: msg.eventsRecorded || state.eventsRecorded
+    //     }
+    //   })
+    // })
   }
 
   public startRecording(event: React.MouseEvent<HTMLButtonElement>, data: ButtonProps): void {
-    chrome.storage.local.get((storage: any) => {
-      chrome.storage.local.set(
-        {
-          ...storage,
-          isRecording: true
-        },
-        () => {
-          chrome.tabs.query({ active: true, currentWindow: true }, (tabs: chrome.tabs.Tab[]) => {
-            const id: number = tabs[0].id as number
-            chrome.tabs.sendMessage(id, { record: true }, (res: any) => {
-              this.setState((state: any) => ({
-                ...state,
-                isRecording: true
-              }))
-              console.log('resp from start recording:', res)
-            })
-          })
-        }
-      )
+    chrome.storage.local.set({ isRecording: true }, () => {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs: chrome.tabs.Tab[]) => {
+        const id: number = tabs[0].id as number
+        chrome.tabs.sendMessage(id, { record: true }, (res: any) => {
+          this.setState((state: any) => ({
+            ...state,
+            isRecording: true
+          }))
+          console.log('resp from start recording:', res)
+        })
+      })
     })
   }
 
   public stopRecording(event: React.MouseEvent<HTMLButtonElement>, data: ButtonProps): void {
     console.log('stop')
-    chrome.storage.local.get((storage: any) => {
-      chrome.storage.local.set(
-        {
-          ...storage,
-          isRecording: false
-        },
-        () => {
-          chrome.tabs.query({ active: true, currentWindow: true }, (tabs: chrome.tabs.Tab[]) => {
-            const id: number = tabs[0].id as number
-            chrome.tabs.sendMessage(id, { record: false }, (res: any) => {
-              this.setState(() => ({
-                isRecording: false
-              }))
-              console.log('resp from start recording:', res)
-            })
-          })
-        }
-      )
+    chrome.storage.local.set({ isRecording: false }, () => {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs: chrome.tabs.Tab[]) => {
+        const id: number = tabs[0].id as number
+        chrome.tabs.sendMessage(id, { record: false }, (res: any) => {
+          this.setState(() => ({
+            isRecording: false
+          }))
+          console.log('resp from start recording:', res)
+        })
+      })
     })
   }
 
