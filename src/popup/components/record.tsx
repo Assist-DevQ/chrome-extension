@@ -1,30 +1,38 @@
 import * as React from 'react'
 import { Button, ButtonProps } from 'semantic-ui-react'
+import { IMessage, MessageType } from '../../types/message/message'
+import { ClientType } from '../../types/message/client-types'
 
 /* tslint:disable-next-line: no-var-requires */
 const recordStyles = require('./Record.css')
 
 class Record extends React.Component<any, any> {
+  private backPort: chrome.runtime.Port
+
   constructor(props: any) {
     super(props)
     this.state = {
       isRecording: props.isRecording,
-      eventsRecorded: props.events.length
+      eventsRecorded: 0
     }
-
     // This binding is necessary to make `this` work in the callback
     this.startRecording = this.startRecording.bind(this)
     this.stopRecording = this.stopRecording.bind(this)
     this.record = this.record.bind(this)
     this.recording = this.recording.bind(this)
-    // chrome.runtime.onMessage.addListener((msg, sen, resCb) => {
-    //   this.setState((state: any) => {
-    //     return {
-    //       ...state,
-    //       eventsRecorded: msg.eventsRecorded || state.eventsRecorded
-    //     }
-    //   })
-    // })
+    this.backPort = chrome.runtime.connect({name: ClientType.Popup})
+    this.backPort.onMessage.addListener((msg: any) => {
+      switch (msg.type) {
+        case MessageType.UpdateCount:
+          this.setState((state: any) => {
+            return {
+              ...state,
+              eventsRecorded: msg.payload
+            }
+          })
+          break
+      }
+    })
   }
 
   public startRecording(event: React.MouseEvent<HTMLButtonElement>, data: ButtonProps): void {

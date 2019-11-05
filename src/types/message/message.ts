@@ -1,7 +1,9 @@
 export enum MessageType {
   Record = 'record',
   StopRecording = 'stopRecording',
-  NewEvent = 'newEvent'
+  NewEvent = 'newEvent',
+  UpdateCount = 'updateCount',
+  MemoryCount = 'memoryCount',
 }
 
 export interface IMessage<T> {

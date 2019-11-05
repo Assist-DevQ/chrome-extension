@@ -1,17 +1,17 @@
 // Original Source : https://github.com/iann0036/wildfire/blob/9bea9b4adb3399cba6020dcada760d329af9219f/content.js
 import { DOMEvent } from './types/DOMEvent'
-import { StorageKey } from '../types/StorageKeys'
+import { StorageKey, IStorageProps } from '../types/StorageKeys'
 import { MessageType } from '../types/message/message'
 
 const listeners: Map<string, EventListenerOrEventListenerObject[]> = new Map()
 
-chrome.storage.local.get(StorageKey.IsRecording, (store) => {
-  if(store.isRecording) {
+chrome.storage.local.get(StorageKey.IsRecording, (store: any) => {
+  if (store.isRecording) {
     startRecording()
   } else {
     removeListeners()
   }
-});
+})
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   console.log('message:', msg)
@@ -191,7 +191,7 @@ const listenerHandler = (eventName: string) => (e: Event) => {
   if (eventName === 'wfSubmit') {
     eventName = 'submit'
   }
-  chrome.storage.local.get(StorageKey.IsRecording, (store) => {
+  chrome.storage.local.get(StorageKey.IsRecording, (store: any) => {
     if (store.isRecording) {
       chrome.runtime.sendMessage({
         type: MessageType.NewEvent,
