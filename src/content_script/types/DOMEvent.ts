@@ -10,6 +10,7 @@ export enum DOMEvent {
   // KeyDown = 'keydown',
   KeyPress = 'keypress',
   // KeyUp = 'keyup',
+  Scroll = 'scroll',
   Input = 'input',
   Change = 'change',
   Cut = 'cut',

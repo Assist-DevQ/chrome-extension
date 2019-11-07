@@ -1,7 +1,8 @@
 // Original Source : https://github.com/iann0036/wildfire/blob/9bea9b4adb3399cba6020dcada760d329af9219f/content.js
 import { DOMEvent } from './types/DOMEvent'
-import { StorageKey, IStorageProps } from '../types/StorageKeys'
+import { StorageKey } from '../types/StorageKeys'
 import { MessageType } from '../types/message/message'
+import { throttle } from './util/throttle'
 
 const listeners: Map<string, EventListenerOrEventListenerObject[]> = new Map()
 
@@ -48,49 +49,7 @@ const removeListeners = () => {
 const startRecording = () => {
   console.log('adding listeners')
   Object.values(DOMEvent).forEach(addDocumentEventListener)
-  const scrollListener = (e: Event) => {
-    setTimeout(() => {
-      console.log('onScroll', e) // TODO: get right values
-    }, 100)
-  }
-  listeners.set('scroll', [scrollListener])
-  window.addEventListener('scroll', scrollListener, false)
 }
-
-// const updateScrollEvent = () => {
-//   const scrollTimeMs = 100
-//   if (scrollProps.object == null) {
-//     scrollProps.startTime = Date.now()
-//     scrollProps.object = document.body
-//     scrollProps.startTop = scrollProps.scrollTop
-//     scrollProps.startLeft = scrollObject.scrollLeft
-//     scrollProps.timer = setTimeout(finishScrollEvent, scrollTimeMs)
-//   } else {
-//     if (scrollProps.timer) {
-//       clearTimeout(scrollProps.timer as NodeJS.Timer)
-//     }
-//     scrollProps.timer = setTimeout(finishScrollEvent, scrollTimeMs)
-//   }
-// }
-
-// const finishScrollEvent = () => {
-//   scrollObject = document.body
-
-//   eventStore.add({
-//     event: 'scroll',
-//     data: {
-//       scrollTopStart: scrollProps.startTop,
-//       scrollTopEnd: scrollObject.scrollTop,
-//       scrollLeftStart: scrollProps.startLeft,
-//       scrollLeftEnd: scrollObject.scrollLeft,
-//       url: window.location.href
-//     },
-//     time: Number(Date.now())
-//   })
-
-//   scrollProps.startTop = 0
-//   scrollProps.startLeft = 0
-// }
 
 function getCSSPath(el: any, ignoreIds: boolean) {
   if (!(el instanceof Element)) {
@@ -133,18 +92,60 @@ const addDocumentEventListener = (eventName: string) => {
   } else {
     listeners.set(eventName, [listener])
   }
-  document.body.addEventListener(eventName, listener, false)
+  if (eventName === DOMEvent.Scroll) {
+    window.addEventListener(eventName, throttle(listener, 1000))
+  } else {
+    document.body.addEventListener(eventName, listener, false)
+  }
 }
 
-const listenerHandler = (eventName: string) => (e: Event) => {
+function processPath(elementPath: any) {
+  if (!elementPath) { return '' }
+
+  const numPathElements = elementPath.length
+  const path = []
+
+  let uniqueEl = false
+  for (let i = 0; i < numPathElements - 1 && !uniqueEl; i++) {
+    if (elementPath[i].id != null && elementPath[i].id !== '') {
+      uniqueEl = true
+      path.push({
+        uniqueId: elementPath[i].id,
+        tagName: elementPath[i].tagName
+      })
+    } else {
+      let childIndex = null
+      for (let j = 0; elementPath[i].parentNode != null && j < elementPath[i].parentNode.childNodes.length; j++) {
+        if (elementPath[i].parentNode.childNodes[j] === elementPath[i]) {
+          childIndex = j
+        }
+      }
+      if (childIndex == null && elementPath[i] === document) {
+        // WTF
+      } else {
+        path.push({
+          uniqueId: null,
+          childIndex,
+          tagName: elementPath[i].tagName
+        })
+      }
+    }
+  }
+
+  return path
+}
+
+const listenerHandler = (eventName: string) => (e: Event | any) => {
   const mEvt = e as MouseEvent
   const kEvt = e as KeyboardEvent
   const eventData = {
-    // path: processPath(e.path),
+    path: processPath(e.path),
     csspath: getCSSPath(e.target, false),
     csspathfull: getCSSPath(e.target, true),
     clientX: mEvt.clientX,
     clientY: mEvt.clientY,
+    scrollX: window.scrollX,
+    scrollY: window.scrollY,
     altKey: mEvt.altKey,
     ctrlKey: mEvt.ctrlKey,
     shiftKey: mEvt.shiftKey,

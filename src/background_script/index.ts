@@ -1,9 +1,6 @@
 import { IStorageProps } from '../types/StorageKeys'
 import { MessageListener } from './message-listener'
 import { IEventProps } from '../types/EventProps'
-import { ClientType } from '../types/message/client-types'
-import { any } from 'prop-types'
-import { MessageType } from '../types/message/message'
 
 const defaultStorage: IStorageProps = {
   isRecording: false,
