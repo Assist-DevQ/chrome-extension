@@ -20,7 +20,7 @@ class Record extends React.Component<any, any> {
     this.stopRecording = this.stopRecording.bind(this)
     this.record = this.record.bind(this)
     this.recording = this.recording.bind(this)
-    this.backPort = chrome.runtime.connect({name: ClientType.Popup})
+    this.backPort = chrome.runtime.connect({ name: ClientType.Popup })
     this.backPort.onMessage.addListener((msg: any) => {
       switch (msg.type) {
         case MessageType.UpdateCount:
@@ -39,13 +39,11 @@ class Record extends React.Component<any, any> {
     chrome.storage.local.set({ isRecording: true }, () => {
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs: chrome.tabs.Tab[]) => {
         const id: number = tabs[0].id as number
-        chrome.tabs.sendMessage(id, { record: true }, (res: any) => {
-          this.setState((state: any) => ({
-            ...state,
-            isRecording: true
-          }))
-          console.log('resp from start recording:', res)
-        })
+        chrome.tabs.sendMessage(id, { record: true })
+        this.setState((state: any) => ({
+          ...state,
+          isRecording: true
+        }))
       })
     })
   }
@@ -55,12 +53,10 @@ class Record extends React.Component<any, any> {
     chrome.storage.local.set({ isRecording: false }, () => {
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs: chrome.tabs.Tab[]) => {
         const id: number = tabs[0].id as number
-        chrome.tabs.sendMessage(id, { record: false }, (res: any) => {
-          this.setState(() => ({
-            isRecording: false
-          }))
-          console.log('resp from start recording:', res)
-        })
+        chrome.tabs.sendMessage(id, { record: false })
+        this.setState(() => ({
+          isRecording: false
+        }))
       })
     })
   }
