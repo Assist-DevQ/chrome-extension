@@ -1,29 +1,5 @@
 [
-  { "event": "start", "data": { "url": "http://localhost:3000/home" }, "time": 1573319214662 },
-  {
-    "event": "focusin",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 0, "tagName": "A" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "LI" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "UL" },
-        { "uniqueId": "navbarCollapse3", "tagName": "DIV" }
-      ],
-      "csspath": "div#navbarCollapse3 > ul > li:nth-of-type(2) > a",
-      "csspathfull": "html > body > div > div > div > div > div > nav > div:nth-of-type(2) > ul > li:nth-of-type(2) > a",
-      "scrollX": 0,
-      "scrollY": 0,
-      "bubbles": true,
-      "keyCode": -1,
-      "selectValue": "",
-      "value": "",
-      "type": "",
-      "cancelable": false,
-      "innerText": {},
-      "url": "http://localhost:3000/home"
-    },
-    "time": 1573319215689
-  },
+  { "event": "start", "data": { "url": "http://localhost:3000/home" }, "time": 1573320409146 },
   {
     "event": "click",
     "data": {
@@ -35,8 +11,8 @@
       ],
       "csspath": "div#navbarCollapse3 > ul > li:nth-of-type(2) > a",
       "csspathfull": "html > body > div > div > div > div > div > nav > div:nth-of-type(2) > ul > li:nth-of-type(2) > a",
-      "clientX": 1869,
-      "clientY": 31,
+      "clientX": 1855,
+      "clientY": 34,
       "scrollX": 0,
       "scrollY": 0,
       "altKey": false,
@@ -53,36 +29,7 @@
       "innerText": {},
       "url": "http://localhost:3000/home"
     },
-    "time": 1573319215689
-  },
-  {
-    "event": "focusin",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "bubbles": true,
-      "keyCode": -1,
-      "selectValue": "",
-      "value": "",
-      "type": "",
-      "cancelable": false,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319216775
+    "time": 1573320409951
   },
   {
     "event": "click",
@@ -100,8 +47,8 @@
       ],
       "csspath": "div#app > div > div > div > div > div > form > div > input",
       "csspathfull": "html > body > div > div > div > div > div > div > form > div > input",
-      "clientX": 570,
-      "clientY": 256,
+      "clientX": 488,
+      "clientY": 242,
       "scrollX": 0,
       "scrollY": 0,
       "altKey": false,
@@ -118,36 +65,7 @@
       "innerText": {},
       "url": "http://localhost:3000/login"
     },
-    "time": 1573319216785
-  },
-  {
-    "event": "input",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "bubbles": true,
-      "keyCode": -1,
-      "selectValue": "",
-      "value": "andr3i.mir69@gmail.com",
-      "type": "input",
-      "cancelable": false,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319217330
+    "time": 1573320411424
   },
   {
     "event": "change",
@@ -176,65 +94,7 @@
       "innerText": {},
       "url": "http://localhost:3000/login"
     },
-    "time": 1573319217331
-  },
-  {
-    "event": "focusout",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "bubbles": true,
-      "keyCode": -1,
-      "selectValue": "",
-      "value": "",
-      "type": "",
-      "cancelable": false,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319218019
-  },
-  {
-    "event": "focusin",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "bubbles": true,
-      "keyCode": -1,
-      "selectValue": "",
-      "value": "",
-      "type": "",
-      "cancelable": false,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319218020
+    "time": 1573320411945
   },
   {
     "event": "click",
@@ -252,8 +112,8 @@
       ],
       "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(2) > input",
       "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "clientX": 515,
-      "clientY": 350,
+      "clientX": 493,
+      "clientY": 340,
       "scrollX": 0,
       "scrollY": 0,
       "altKey": false,
@@ -270,317 +130,7 @@
       "innerText": {},
       "url": "http://localhost:3000/login"
     },
-    "time": 1573319218080
-  },
-  {
-    "event": "keypress",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "altKey": false,
-      "ctrlKey": false,
-      "shiftKey": false,
-      "metaKey": false,
-      "bubbles": true,
-      "keyCode": 116,
-      "selectValue": "",
-      "value": "",
-      "type": "",
-      "cancelable": true,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319219706
-  },
-  {
-    "event": "input",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "bubbles": true,
-      "keyCode": -1,
-      "selectValue": "",
-      "value": "t",
-      "type": "input",
-      "cancelable": false,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319219706
-  },
-  {
-    "event": "keypress",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "altKey": false,
-      "ctrlKey": false,
-      "shiftKey": false,
-      "metaKey": false,
-      "bubbles": true,
-      "keyCode": 101,
-      "selectValue": "",
-      "value": "",
-      "type": "",
-      "cancelable": true,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319219821
-  },
-  {
-    "event": "input",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "bubbles": true,
-      "keyCode": -1,
-      "selectValue": "",
-      "value": "te",
-      "type": "input",
-      "cancelable": false,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319219823
-  },
-  {
-    "event": "keypress",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "altKey": false,
-      "ctrlKey": false,
-      "shiftKey": false,
-      "metaKey": false,
-      "bubbles": true,
-      "keyCode": 115,
-      "selectValue": "",
-      "value": "",
-      "type": "",
-      "cancelable": true,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319220232
-  },
-  {
-    "event": "input",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "bubbles": true,
-      "keyCode": -1,
-      "selectValue": "",
-      "value": "tes",
-      "type": "input",
-      "cancelable": false,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319220234
-  },
-  {
-    "event": "keypress",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "altKey": false,
-      "ctrlKey": false,
-      "shiftKey": false,
-      "metaKey": false,
-      "bubbles": true,
-      "keyCode": 116,
-      "selectValue": "",
-      "value": "",
-      "type": "",
-      "cancelable": true,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319220358
-  },
-  {
-    "event": "input",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "bubbles": true,
-      "keyCode": -1,
-      "selectValue": "",
-      "value": "test",
-      "type": "input",
-      "cancelable": false,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319220358
-  },
-  {
-    "event": "keypress",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "altKey": false,
-      "ctrlKey": false,
-      "shiftKey": false,
-      "metaKey": false,
-      "bubbles": true,
-      "keyCode": 117,
-      "selectValue": "",
-      "value": "",
-      "type": "",
-      "cancelable": true,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319220759
-  },
-  {
-    "event": "input",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "bubbles": true,
-      "keyCode": -1,
-      "selectValue": "",
-      "value": "testu",
-      "type": "input",
-      "cancelable": false,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319220759
+    "time": 1573320412461
   },
   {
     "event": "change",
@@ -603,71 +153,13 @@
       "bubbles": true,
       "keyCode": -1,
       "selectValue": "",
-      "value": "testu",
+      "value": "testul",
       "type": "input",
       "cancelable": false,
       "innerText": {},
       "url": "http://localhost:3000/login"
     },
-    "time": 1573319222177
-  },
-  {
-    "event": "focusout",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 1, "tagName": "INPUT" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(2) > input",
-      "scrollX": 0,
-      "scrollY": 0,
-      "bubbles": true,
-      "keyCode": -1,
-      "selectValue": "",
-      "value": "",
-      "type": "",
-      "cancelable": false,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319222177
-  },
-  {
-    "event": "focusin",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 0, "tagName": "BUTTON" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 3, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(3) > button",
-      "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(3) > button",
-      "scrollX": 0,
-      "scrollY": 0,
-      "bubbles": true,
-      "keyCode": -1,
-      "selectValue": "",
-      "value": "",
-      "type": "",
-      "cancelable": false,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319222183
+    "time": 1573320416527
   },
   {
     "event": "click",
@@ -685,8 +177,8 @@
       ],
       "csspath": "div#app > div > div > div > div > div > form > div:nth-of-type(3) > button",
       "csspathfull": "html > body > div > div > div > div > div > div > form > div:nth-of-type(3) > button",
-      "clientX": 461,
-      "clientY": 400,
+      "clientX": 448,
+      "clientY": 405,
       "scrollX": 0,
       "scrollY": 0,
       "altKey": false,
@@ -703,36 +195,7 @@
       "innerText": {},
       "url": "http://localhost:3000/login"
     },
-    "time": 1573319222226
+    "time": 1573320416588
   },
-  {
-    "event": "focusout",
-    "data": {
-      "path": [
-        { "uniqueId": null, "childIndex": 0, "tagName": "BUTTON" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 2, "tagName": "FORM" },
-        { "uniqueId": null, "childIndex": 1, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 4, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": null, "childIndex": 0, "tagName": "DIV" },
-        { "uniqueId": "app", "tagName": "DIV" }
-      ],
-      "csspath": "div#app > div > div > div > div:nth-of-type(2) > div > form > div:nth-of-type(3) > button",
-      "csspathfull": "html > body > div > div > div > div > div:nth-of-type(2) > div > form > div:nth-of-type(3) > button",
-      "scrollX": 0,
-      "scrollY": 0,
-      "bubbles": true,
-      "keyCode": -1,
-      "selectValue": "",
-      "value": "",
-      "type": "",
-      "cancelable": false,
-      "innerText": {},
-      "url": "http://localhost:3000/login"
-    },
-    "time": 1573319225083
-  },
-  { "event": "end", "data": { "url": "http://localhost:3000/login" }, "time": 1573319225839 }
+  { "event": "end", "data": { "url": "http://localhost:3000/login" }, "time": 1573320421455 }
 ]
