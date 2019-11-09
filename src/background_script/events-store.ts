@@ -7,9 +7,13 @@ export class EventsStore {
     this.events.push(e)
   }
 
-  public store(): Promise<void> {
-    return new Promise((resolve, _) => {
-      chrome.storage.local.set({ events: this.events }, resolve)
-    })
+  // public store(): Promise<void> {
+  //   return new Promise((resolve, _) => {
+  //     chrome.storage.local.set({ events: this.events }, resolve)
+  //   })
+  // }
+
+  public clean() {
+    this.events.length = 0
   }
 }

@@ -20,9 +20,25 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     console.log('starting to record')
     startRecording()
     chrome.runtime.sendMessage({ type: MessageType.Record, payload: true })
+    chrome.runtime.sendMessage({
+      type: MessageType.NewEvent,
+      payload: {
+        event: 'start',
+        data: {url: window.location.href},
+        time: Number(Date.now())
+      }
+    })
   } else if (msg.record === false) {
     console.log('stopping to record')
     removeListeners()
+    chrome.runtime.sendMessage({
+      type: MessageType.NewEvent,
+      payload: {
+        event: 'end',
+        data: {url: window.location.href},
+        time: Number(Date.now())
+      }
+    })
     chrome.runtime.sendMessage({ type: MessageType.StopRecording, payload: false })
   } else {
     sendResponse('unknown command.')

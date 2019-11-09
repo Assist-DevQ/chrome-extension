@@ -24,8 +24,10 @@ export class MessageListener {
           this.eventStore = new EventsStore()
           break
         case MessageType.StopRecording:
-          this.eventStore.store()
+          // this.eventStore.store()
           console.log('Recorded events:', this.eventStore.events)
+          console.log('JSON:', JSON.stringify(this.eventStore.events))
+          this.eventStore.clean()
           break
         case MessageType.NewEvent:
           this.eventStore.add(msg.payload)
