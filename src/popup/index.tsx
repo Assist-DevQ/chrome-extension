@@ -4,7 +4,10 @@ import App from './App'
 
 import './index.css'
 import { StorageKey } from '../types/StorageKeys'
+import { BackAPI } from '../service/back-end.service'
 
 chrome.storage.local.get(StorageKey.IsRecording, (store) => {
-  ReactDOM.render(<App {...store}/>, document.getElementById('root') as HTMLElement)
+  const api = BackAPI.getInstance()
+  const props = {...store, api}
+  ReactDOM.render(<App {...props}/>, document.getElementById('root') as HTMLElement)
 })

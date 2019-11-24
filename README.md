@@ -7,6 +7,15 @@ chrome-extension -  for recording testing scenarios
 - `dist`: This is where the Chrome Extension will be built
   - `dist/build`: Generated JavaScript bundles with source mapping, and assets
 
+## Project config
+Create a `.env` file in te root of the project.
+Add the following lines to the `.env` file:
+
+```
+API_BASE_URL=http://788c9076.ngrok.io/extension/api/v1
+API_AUTH=<base64 ecoded basic credentials>
+```
+
 ## Development build
 Runs webpack in watch mode, generates bundles with source mapping
 ```

@@ -1,5 +1,6 @@
 import * as path from 'path'
 import * as webpack from 'webpack'
+import {config} from 'dotenv'
 
 // webpack plugins
 /* tslint:disable-next-line: no-var-requires */
@@ -14,6 +15,14 @@ const isProd = (): boolean => {
   return process.env.NODE_ENV === 'production'
 }
 
+const env: any = config().parsed
+
+const envKeys = Object.keys(env).reduce((prev: any, next: any) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next])
+  return prev
+}, {})
+
+console.log('***************************************************************', envKeys)
 const buildConfig: webpack.Configuration = {
   entry: {
     background_script: path.join(__dirname, 'src/background_script/index.ts'),
@@ -76,6 +85,7 @@ const buildConfig: webpack.Configuration = {
     path: path.join(__dirname, 'dist/build')
   },
   plugins: [
+    new webpack.DefinePlugin(envKeys),
     // pack common chunks
     new webpack.optimize.CommonsChunkPlugin({
       chunks: ['background_script', 'content_script'],

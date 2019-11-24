@@ -1,8 +1,6 @@
-import './env'
-
 export class APIConfig {
   public baseUrl: string = process.env.API_BASE_URL || ''
-  public auth: string = process.env.API_BASE_URL || ''
+  public auth: string = process.env.API_AUTH || ''
   public api: IApiEndpoints = {
     project: '/projects',
     scenario: '/scenarios',

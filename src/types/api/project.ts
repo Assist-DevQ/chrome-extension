@@ -1,5 +1,5 @@
 export interface IProject {
-  id?: number
+  id: number
   name: string
   repository_link: string
   production_url: string
