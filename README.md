@@ -11,7 +11,7 @@ chrome-extension -  for recording testing scenarios
 Create a `.env` file in te root of the project.
 Add the following lines to the `.env` file:
 
-```
+```sh
 API_BASE_URL=http://788c9076.ngrok.io/extension/api/v1
 API_AUTH=<base64 ecoded basic credentials>
 ```

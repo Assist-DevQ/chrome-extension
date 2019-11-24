@@ -1,7 +1,7 @@
 // Original Source : https://github.com/iann0036/wildfire/blob/9bea9b4adb3399cba6020dcada760d329af9219f/content.js
 import { DOMEvent } from './types/DOMEvent'
 import { StorageKey } from '../types/StorageKeys'
-import { MessageType } from '../types/message/message'
+import { MessageType } from '../types/chrome/message/message'
 import { throttle } from './util/throttle'
 
 const listeners: Map<string, EventListenerOrEventListenerObject[]> = new Map()

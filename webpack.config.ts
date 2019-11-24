@@ -22,7 +22,6 @@ const envKeys = Object.keys(env).reduce((prev: any, next: any) => {
   return prev
 }, {})
 
-console.log('***************************************************************', envKeys)
 const buildConfig: webpack.Configuration = {
   entry: {
     background_script: path.join(__dirname, 'src/background_script/index.ts'),

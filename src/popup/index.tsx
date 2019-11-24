@@ -5,8 +5,9 @@ import App from './App'
 import './index.css'
 import { StorageKey } from '../types/StorageKeys'
 import { BackAPI } from '../service/back-end.service'
+import { ChromeApi } from './service/chromeApi'
 
-chrome.storage.local.get(StorageKey.IsRecording, (store) => {
+ChromeApi.getStoreKey(StorageKey.IsRecording).then((store) => {
   const api = BackAPI.getInstance()
   const props = {...store, api}
   ReactDOM.render(<App {...props}/>, document.getElementById('root') as HTMLElement)

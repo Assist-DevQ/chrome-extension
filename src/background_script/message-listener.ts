@@ -1,7 +1,7 @@
-import { IMessage, MessageType } from '../types/message/message'
+import { IMessage, MessageType } from '../types/chrome/message/message'
 import { EventsStore } from './events-store'
 import { IEventProps } from '../types/EventProps'
-import { ClientType } from '../types/message/client-types'
+import { ClientType } from '../types/chrome/message/client-types'
 
 export type MessageListenerType<T> = (
   message: IMessage<T>,

@@ -1,69 +1,48 @@
 import * as React from 'react'
 import { Button, ButtonProps } from 'semantic-ui-react'
-import { IMessage, MessageType } from '../../types/message/message'
-import { ClientType } from '../../types/message/client-types'
+import { IMessage, MessageType } from '../../types/chrome/message/message'
+import { ClientType } from '../../types/chrome/message/client-types'
+import { IRecordProps, IRecordState } from './types/record'
+import { ChromeApi } from '../service/chromeApi'
+import { StorageKey } from '../../types/StorageKeys'
 
 /* tslint:disable-next-line: no-var-requires */
 const recordStyles = require('./Record.css')
 
-class Record extends React.Component<any, any> {
+class Record extends React.Component<IRecordProps, IRecordState> {
   private backPort: chrome.runtime.Port
 
-  constructor(props: any) {
+  constructor(props: IRecordProps) {
     super(props)
     this.state = {
       isRecording: props.isRecording,
       eventsRecorded: 0
     }
     // This binding is necessary to make `this` work in the callback
-    this.startRecording = this.startRecording.bind(this)
-    this.stopRecording = this.stopRecording.bind(this)
+    this.toggleRecordingState = this.toggleRecordingState.bind(this)
     this.record = this.record.bind(this)
     this.recording = this.recording.bind(this)
     this.backPort = chrome.runtime.connect({ name: ClientType.Popup })
-    this.backPort.onMessage.addListener((msg: any) => {
-      switch (msg.type) {
-        case MessageType.UpdateCount:
-          this.setState((state: any) => {
-            return {
-              ...state,
-              eventsRecorded: msg.payload
-            }
-          })
-          break
-      }
-    })
+    this.backPort.onMessage.addListener(this.onBackMessage.bind(this))
   }
 
-  public startRecording(event: React.MouseEvent<HTMLButtonElement>, data: ButtonProps): void {
-    chrome.storage.local.set({ isRecording: true }, () => {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs: chrome.tabs.Tab[]) => {
-        const id: number = tabs[0].id as number
-        chrome.tabs.sendMessage(id, { record: true })
-        this.setState((state: any) => ({
-          ...state,
-          isRecording: true
-        }))
-      })
-    })
-  }
-
-  public stopRecording(event: React.MouseEvent<HTMLButtonElement>, data: ButtonProps): void {
-    console.log('stop')
-    chrome.storage.local.set({ isRecording: false }, () => {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs: chrome.tabs.Tab[]) => {
-        const id: number = tabs[0].id as number
-        chrome.tabs.sendMessage(id, { record: false })
-        this.setState(() => ({
-          isRecording: false
-        }))
-      })
-    })
+  public async toggleRecordingState(event: React.MouseEvent<HTMLButtonElement>, data: ButtonProps): Promise<void> {
+    try {
+      await ChromeApi.setStoreKey(StorageKey.IsRecording, !this.state.isRecording)
+      const tabId = await ChromeApi.getCurrentTabId()
+      chrome.tabs.sendMessage(tabId, { record: !this.state.isRecording })
+      this.setState((state: IRecordState) => ({
+        ...state,
+        isRecording: !state.isRecording
+      }))
+    } catch (e) {
+      console.error(e.message)
+    }
   }
 
   public record() {
     return (
-      <Button color="green" onClick={this.startRecording}>
+      <Button color="green" onClick={this.toggleRecordingState}>
         Record
       </Button>
     )
@@ -71,7 +50,7 @@ class Record extends React.Component<any, any> {
 
   public recording() {
     return (
-      <Button color="red" onClick={this.stopRecording}>
+      <Button color="red" onClick={this.toggleRecordingState}>
         Stop recording
       </Button>
     )
@@ -88,6 +67,20 @@ class Record extends React.Component<any, any> {
         </div>
       </div>
     )
+  }
+
+  private onBackMessage(message: any, _: any) {
+    const msg: IMessage<number> = message
+    switch (msg.type) {
+      case MessageType.UpdateCount:
+        this.setState((state: any) => {
+          return {
+            ...state,
+            eventsRecorded: msg.payload
+          }
+        })
+        break
+    }
   }
 }
 
