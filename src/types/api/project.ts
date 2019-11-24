@@ -6,3 +6,7 @@ export interface IProject {
   user_repo: string
   repository_name: string
 }
+
+export interface IProjectsResponse {
+  projects: IProject[]
+}

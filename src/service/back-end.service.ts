@@ -1,7 +1,7 @@
 import { APIConfig } from './apiConf'
 import axios, { AxiosInstance } from 'axios'
-import { IProject } from '../types/api/project'
-import { IScenario, IBatchEvents } from '../types/api/scenario'
+import { IProject, IProjectsResponse } from '../types/api/project'
+import { IScenario, IBatchEvents, IScenariosResponse } from '../types/api/scenario'
 import { IEventProps } from '../types/EventProps'
 
 export class BackAPI {
@@ -31,16 +31,16 @@ export class BackAPI {
 
   public async getProjects(): Promise<IProject[]> {
     const adminUrl = this.conf.baseUrl.replace('extension', 'admin')
-    const res = await this.http.get<IProject[]>(`${adminUrl}${this.conf.api.project}`)
-    return res.data
+    const res = await this.http.get<IProjectsResponse>(`${adminUrl}${this.conf.api.project}`)
+    return res.data.projects
   }
 
   public async getScenarios(projetcId: number): Promise<IScenario[]> {
     const conf = {
       params: {project_id: projetcId}
     }
-    const res = await this.http.get<IScenario[]>(this.conf.api.scenario, conf)
-    return res.data
+    const res = await this.http.get<IScenariosResponse>(this.conf.api.scenario, conf)
+    return res.data.scenarios
   }
 
   public async saveEvents(scenarioId: number, events: IEventProps[]): Promise<boolean> {

@@ -42,7 +42,5 @@ npm run build
 
 ## Roadmap
 
-- Add a private chanel from content script to background
-- Correctly handle the scroll event
-- Filter the useless events
-- Get scroll offset for each event??
+- Store in the local storage the selected project and scenario so the pop-up remembers them if closed and reopened
+- Send the selected scenario id with the stop event tot he back script so it can upload the events

@@ -9,3 +9,7 @@ export interface IBatchEvents {
   scenario_id: number
   events: IEventProps[]
 }
+
+export interface IScenariosResponse {
+  scenarios: IScenario[]
+}
