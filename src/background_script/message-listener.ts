@@ -2,6 +2,7 @@ import { IMessage, MessageType } from '../types/chrome/message/message'
 import { EventsStore } from './events-store'
 import { IEventProps } from '../types/EventProps'
 import { ClientType } from '../types/chrome/message/client-types'
+import { BackAPI } from '../service/back-end.service'
 
 export type MessageListenerType<T> = (
   message: IMessage<T>,
@@ -14,23 +15,27 @@ export type ConnectionListenerType = (port: chrome.runtime.Port) => void
 export class MessageListener {
   public eventStore = new EventsStore()
   private popupPort?: chrome.runtime.Port
+  private readonly api: BackAPI
 
-  public buildForContent<T extends IEventProps>(): MessageListenerType<T> {
+  constructor(api: BackAPI) {
+    this.api = api
+  }
+
+  public buildForContent<T extends IEventProps | number>(): MessageListenerType<T> {
     console.log('adding background listener')
     return (msg, sen, resCb) => {
-      console.log('MEssage:', msg)
       switch (msg.type) {
         case MessageType.Record:
           this.eventStore = new EventsStore()
           break
         case MessageType.StopRecording:
-          // this.eventStore.store()
-          console.log('Recorded events:', this.eventStore.events)
           console.log('JSON:', JSON.stringify(this.eventStore.events))
-          this.eventStore.clean()
+          this.api.saveEvents(msg.payload as number, this.eventStore.events).then(() => {
+            this.eventStore.clean()
+          })
           break
         case MessageType.NewEvent:
-          this.eventStore.add(msg.payload)
+          this.eventStore.add(msg.payload as IEventProps)
           this.postCountMessage()
           break
         default:

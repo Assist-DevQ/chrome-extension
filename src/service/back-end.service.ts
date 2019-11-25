@@ -48,7 +48,7 @@ export class BackAPI {
       scenario_id: scenarioId,
       events
     }
-    const res = await this.http.post<IBatchEvents>(this.conf.api.eventBatch, { body })
+    const res = await this.http.post<IBatchEvents>(this.conf.api.eventBatch, body)
     return res.status === 200
   }
 }

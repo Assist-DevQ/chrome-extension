@@ -1,9 +1,9 @@
 import { IStorageProps, StorageKey } from '../../types/StorageKeys'
 
 export class ChromeApi {
-  public static getStoreKey(key: StorageKey): Promise<IStorageProps> {
+  public static getStoreKey(keys: StorageKey | StorageKey[]): Promise<IStorageProps> {
     return new Promise((res, _) => {
-      chrome.storage.local.get(key, (store: any) => {
+      chrome.storage.local.get(keys, (store: any) => {
         res(store)
       })
     })

@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     chrome.runtime.sendMessage({
       type: MessageType.NewEvent,
       payload: {
-        event: 'start',
+        name: 'start',
         data: {url: window.location.href},
         time: Number(Date.now())
       }
@@ -34,12 +34,12 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     chrome.runtime.sendMessage({
       type: MessageType.NewEvent,
       payload: {
-        event: 'end',
+        name: 'end',
         data: {url: window.location.href},
         time: Number(Date.now())
       }
     })
-    chrome.runtime.sendMessage({ type: MessageType.StopRecording, payload: false })
+    chrome.runtime.sendMessage({ type: MessageType.StopRecording, payload: msg.scenarioId })
   } else {
     sendResponse('unknown command.')
   }
@@ -213,7 +213,7 @@ const listenerHandler = (eventName: string) => (e: Event | any) => {
       chrome.runtime.sendMessage({
         type: MessageType.NewEvent,
         payload: {
-          event: eventName,
+          name: eventName,
           data: eventData,
           time: Number(Date.now())
         }

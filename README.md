@@ -42,5 +42,4 @@ npm run build
 
 ## Roadmap
 
-- Store in the local storage the selected project and scenario so the pop-up remembers them if closed and reopened
-- Send the selected scenario id with the stop event tot he back script so it can upload the events
+- Send screen size for start event

@@ -1,5 +1,5 @@
 export interface IEventProps {
-  event: string,
+  name: string,
   data: any,
   time: number,
 }

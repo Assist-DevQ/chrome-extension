@@ -20,7 +20,9 @@ class Record extends React.Component<IRecordProps, IRecordState> {
       isRecording: props.isRecording,
       eventsRecorded: 0,
       projects: [],
-      scenarios: []
+      scenarios: [],
+      selectedProjectId: props.projectId,
+      selectedScenarioId: props.scenarioId
     }
     // This binding is necessary to make `this` work in the callback
     this.toggleRecordingState = this.toggleRecordingState.bind(this)
@@ -29,13 +31,14 @@ class Record extends React.Component<IRecordProps, IRecordState> {
     this.backPort = chrome.runtime.connect({ name: ClientType.Popup })
     this.backPort.onMessage.addListener(this.onBackMessage.bind(this))
     this.fetchProjects()
+    if (this.state.selectedProjectId) { this.fetchScenarios(this.state.selectedProjectId)}
   }
 
   public async toggleRecordingState(event: React.MouseEvent<HTMLButtonElement>, data: ButtonProps): Promise<void> {
     try {
       await ChromeApi.setStoreKey(StorageKey.IsRecording, !this.state.isRecording)
       const tabId = await ChromeApi.getCurrentTabId()
-      chrome.tabs.sendMessage(tabId, { record: !this.state.isRecording })
+      chrome.tabs.sendMessage(tabId, { record: !this.state.isRecording, scenarioId: this.state.selectedScenarioId })
       this.setState((state: IRecordState) => ({
         ...state,
         isRecording: !state.isRecording
@@ -51,14 +54,17 @@ class Record extends React.Component<IRecordProps, IRecordState> {
       ...prev,
       selectedProjectId: pId
     }))
+    ChromeApi.setStoreKey(StorageKey.ProjectId, pId)
     this.fetchScenarios(pId)
   }
 
   public selectScenario = (e: any, s: DropdownProps): void => {
+    const sId = s.value as number
     this.setState((prev: IRecordState) => ({
       ...prev,
-      selectedScenario: s.value as number
+      selectedScenario: sId
     }))
+    ChromeApi.setStoreKey(StorageKey.ScenarioId, sId)
   }
 
   public record() {
@@ -77,6 +83,16 @@ class Record extends React.Component<IRecordProps, IRecordState> {
     )
   }
 
+  get projectDrop(): DropdownItemProps[] {
+    const {projects} = this.state
+    return projects ? projects.map((p: IProject) => ({key: p.id, text: p.name, value: p.id})) : []
+  }
+
+  get scenarioDrop(): DropdownItemProps[] {
+    const {scenarios} = this.state
+    return scenarios ? scenarios.map((s: IScenario) => ({key: s.id, text: s.name, value: s.id})) : []
+  }
+
   public render() {
     const button = this.state.isRecording ? <this.recording /> : <this.record />
     return (
@@ -88,8 +104,9 @@ class Record extends React.Component<IRecordProps, IRecordState> {
               search
               compact
               selection
-              options={this.state.projects}
+              options={this.projectDrop}
               onChange={this.selectProject}
+              value={this.state.selectedProjectId}
             />
           </Grid.Column>
         </Grid.Row>
@@ -100,7 +117,9 @@ class Record extends React.Component<IRecordProps, IRecordState> {
               search
               compact
               selection
-              options={this.state.scenarios}
+              options={this.scenarioDrop}
+              onChange={this.selectScenario}
+              value={this.state.selectedScenarioId}
             />
           </Grid.Column>
         </Grid.Row>
@@ -121,23 +140,19 @@ class Record extends React.Component<IRecordProps, IRecordState> {
 
   private async fetchProjects(): Promise<void> {
     const projects = await this.props.api.getProjects()
-    console.log('Ham project', projects)
-    const projectDrop = projects.map((p: IProject) => ({key: p.id, text: p.name, value: p.id}))
     this.setState((prev: IRecordState) => ({
       ...prev,
-      projects: projectDrop
+      projects
     })
     )
   }
 
   private async fetchScenarios(projectId: number): Promise<void> {
     const scenarios = await this.props.api.getScenarios(projectId)
-    const scenariosDrop = scenarios.map((s: IScenario) => ({key: s.id, text: s.name, value: s.id}))
     this.setState((prev: IRecordState) => ({
       ...prev,
-      scenarios: scenariosDrop
-    })
-    )
+      scenarios
+    }))
   }
 
   private onBackMessage(message: any, _: any) {

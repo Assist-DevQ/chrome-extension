@@ -1,16 +1,19 @@
 import { BackAPI } from '../../../service/back-end.service'
-import { DropdownItemProps } from 'semantic-ui-react'
+import { IProject } from '../../../types/api/project'
+import { IScenario } from '../../../types/api/scenario'
 
 export interface IRecordProps {
   isRecording: boolean
   api: BackAPI
+  projectId: number
+  scenarioId: number
 }
 
 export interface IRecordState {
   isRecording: boolean
   eventsRecorded: number
-  projects: DropdownItemProps[]
-  scenarios: DropdownItemProps[]
+  projects?: IProject[]
+  scenarios?: IScenario[]
   selectedProjectId?: number
   selectedScenarioId?: number
 }
