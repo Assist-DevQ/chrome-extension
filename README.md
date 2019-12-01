@@ -42,4 +42,4 @@ npm run build
 
 ## Roadmap
 
-- Send screen size for start event
+  

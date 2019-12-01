@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       type: MessageType.NewEvent,
       payload: {
         name: 'start',
-        data: {url: window.location.href},
+        data: {url: window.location.href, screenWidth: window.screen.width, screenHeight: window.screen.height},
         time: Number(Date.now())
       }
     })
